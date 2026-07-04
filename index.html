@@ -709,6 +709,10 @@ section{position:relative; z-index:1}
 .deck-intro .lead{margin:28px auto 0; max-width:58ch; font-size:clamp(1.08rem,1.5vw,1.3rem)}
 .deck-intro .lead b{color:var(--cyan); font-weight:600}
 .deck-intro .di-cue{margin-top:clamp(48px,7vh,90px); display:flex; flex-direction:column; align-items:center; gap:clamp(18px,2.6vh,30px)}
+.deck-intro a.di-cue{display:inline-flex; text-decoration:none; cursor:pointer}
+.deck-intro a.di-cue .di-gate{transition:transform .25s cubic-bezier(.16,1,.3,1), box-shadow .25s ease}
+.deck-intro a.di-cue:hover .di-gate{transform:scale(1.07); box-shadow:0 0 34px rgba(92,203,255,.4)}
+.deck-intro a.di-cue:hover .di-cue-label{color:#cdefff; text-shadow:0 0 26px rgba(92,203,255,.6)}
 .deck-intro .di-cue-label{font-family:var(--m); font-size:.74rem; letter-spacing:.34em; text-transform:uppercase; color:var(--cyan-2); text-shadow:0 0 22px rgba(92,203,255,.35)}
 .deck-intro .di-gate{position:relative; width:clamp(60px,7vw,78px); height:clamp(60px,7vw,78px); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--cyan-2);
   border:1px solid rgba(92,203,255,.5); background:radial-gradient(circle at 50% 34%, rgba(63,185,245,.20), rgba(63,185,245,.03) 70%); box-shadow:0 0 34px rgba(63,185,245,.28), inset 0 0 22px rgba(63,185,245,.12); animation:gateBob 2.6s ease-in-out infinite}
@@ -1415,14 +1419,14 @@ footer{border-top:1px solid var(--line); padding:64px 0 40px; position:relative;
   <div class="wrap">
     <h2 class="reveal">The whole network,<br><span class="di-accent">in one command portal.</span></h2>
     <p class="lead reveal">SHIP — the Sea Hawk Intelligence Portal — unifies pricing, cargo flow, network and risk into a single live view. Ask its onboard agent, <b>AISHA</b>, in plain English and the answer surfaces on the map.</p>
-    <div class="di-cue reveal">
+    <a class="di-cue reveal" href="https://sea-hawk-intelligence-portal.vercel.app/" target="_blank" rel="noopener" aria-label="Step inside the live portal">
       <span class="di-cue-label">Step inside the portal</span>
       <div class="di-gate" aria-hidden="true">
         <span class="di-ping"></span>
         <span class="di-ping"></span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
-    </div>
+    </a>
   </div>
 </div>
 
