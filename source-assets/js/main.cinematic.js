@@ -398,8 +398,8 @@ if(conv && conv.children.length===0 && !conv._greeted){ conv._greeted=true; var 
   var deckEl=document.getElementById('deck');
   var titleEl=document.getElementById('deck-title');
 
-  /* 1 — hero ignition timeline — fires when the hero scrolls into view, so it still
-     plays as a full reveal even though the intro video now sits above it.
+  /* 1 — hero ignition timeline — fires when the hero scrolls into view (it's the
+     landing section, with the walkthrough video docked inline on the right).
      Note: the `cine` staging class can be added by the head script *after* this runs,
      so we don't gate observer setup on it — we check it at ignite time instead. */
   if(!reduce && heroEl){
@@ -526,12 +526,19 @@ if(conv && conv.children.length===0 && !conv._greeted){ conv._greeted=true; var 
 
 /* ===== Intro video centerpiece — click-to-play, pauses itself once scrolled out of view ===== */
 (function(){
-  var frame=document.querySelector('.intro-frame'), vid=document.getElementById('intro-video'), btn=document.getElementById('intro-play');
+  var frame=document.querySelector('.intro-frame'), vid=document.getElementById('intro-video'), btn=document.getElementById('intro-play'), fsbtn=document.getElementById('intro-fs');
   if(!frame || !vid || !btn) return;
   vid.muted=true; /* the source has no audio track; enforce silence regardless */
   function play(){ vid.setAttribute('controls',''); vid.play(); btn.classList.add('hide'); }
   btn.addEventListener('click', play);
   vid.addEventListener('play', function(){ btn.classList.add('hide'); });
+  if(fsbtn){ fsbtn.addEventListener('click', function(){
+    play();
+    var target = frame.requestFullscreen ? frame : vid;
+    if(document.fullscreenElement){ document.exitFullscreen(); }
+    else if(target.requestFullscreen){ target.requestFullscreen(); }
+    else if(vid.webkitEnterFullscreen){ vid.webkitEnterFullscreen(); } /* iOS Safari: video element only */
+  }); }
   if('IntersectionObserver' in window){
     new IntersectionObserver(function(es){ es.forEach(function(e){ if(!e.isIntersecting && !vid.paused) vid.pause(); }); },{threshold:.1}).observe(frame);
   }
