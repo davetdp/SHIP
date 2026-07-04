@@ -1188,8 +1188,6 @@ footer{border-top:1px solid var(--line); padding:64px 0 40px; position:relative;
       <button class="anav-chip" data-go="hero" type="button">▲&nbsp; Back to the top</button>
       <button class="anav-chip" data-go="problem" type="button">Why we built SHIP</button>
       <button class="anav-chip" data-go="deck" type="button">See the live demo</button>
-      <button class="anav-chip" data-go="sources" type="button">Where the data comes from</button>
-      <button class="anav-chip" data-go="built" type="button">How it's built</button>
     </div>
     <div class="anav-input"><input class="anav-box" type="text" autocomplete="off" placeholder="Ask AISHA where to go…"><button class="anav-send" type="button" aria-label="Send"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12h15M13 6l6 6-6 6" stroke="#04101e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button></div>
   </div>
@@ -1595,40 +1593,6 @@ footer{border-top:1px solid var(--line); padding:64px 0 40px; position:relative;
     <div class="deck-dots" id="deck-dots"><span class="d" data-scene="0"></span><span class="d" data-scene="1"></span><span class="d" data-scene="2"></span><span class="d" data-scene="3"></span><span class="d" data-scene="4"></span><span class="d" data-scene="5"></span></div>
   </div>
 </div>
-<section class="sources">
-  <div class="wrap">
-    <h2 class="reveal">PIL's own data, fused with the best external intelligence.</h2>
-    <div class="src-grid">
-      <div class="src-card reveal" style="--sc:var(--cyan)"><span class="feed"><i></i>Live</span><div class="nm">PIL Gold Layer</div><div class="ro">Operational core</div><p>Vessel location, P&amp;L, utilisation, bookings, and port details from a single semantic model.</p><div class="meta"><span>Refresh</span><b>Hourly</b></div></div>
-      <div class="src-card reveal" style="--sc:var(--teal)"><span class="feed"><i></i>Live</span><div class="nm">Alphaliner</div><div class="ro">Partner AIS</div><p>Live positions, routes, and capacity for partner and competitor fleets worldwide.</p><div class="meta"><span>Coverage</span><b>Global</b></div></div>
-      <div class="src-card reveal" style="--sc:var(--amber)"><span class="feed"><i></i>Live</span><div class="nm">PSA · BDP</div><div class="ro">Port &amp; schedule</div><p>Berth and port intelligence powering predicted arrivals, departures, and delay risk.</p><div class="meta"><span>Horizon</span><b>+3 months</b></div></div>
-      <div class="src-card reveal" style="--sc:var(--magenta)"><span class="feed"><i></i>Live</span><div class="nm">Dow Jones</div><div class="ro">Risk &amp; safety</div><p>Country and port risk ratings across six tiers, mapped onto every trade lane.</p><div class="meta"><span>Risk tiers</span><b>6 levels</b></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ CUTTABLE SECTION START: "How it's built" — delete this entire <section> to remove ============ -->
-<section class="built" id="how-built">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <h2>From prototype to production — what it takes.</h2>
-      <p class="lead">SHIP runs entirely inside PIL. A clean data layer feeds an AI-assisted build pipeline, version-controlled and hosted on infrastructure PIL already owns.</p>
-    </div>
-    <div class="pipe">
-      <div class="pipe-node reveal"><span class="step">01 · Semantic model</span><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div><h3>Gold data layer</h3><p>Vessel location, P&amp;L, utilisation, port details and container status — structured for the tool.</p><span class="arrow">→</span></div>
-      <div class="pipe-node reveal"><span class="step">02 · On a secure device</span><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg></div><h3>Claude Code</h3><p>Reads and edits the portal directly, auto-triggered as the data layer updates.</p><span class="arrow">→</span></div>
-      <div class="pipe-node reveal"><span class="step">03 · Version storage</span><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg></div><h3>GitHub</h3><p>Already active in PIL — stores every version, so nothing is ever lost.</p><span class="arrow">→</span></div>
-      <div class="pipe-node reveal"><span class="step">04 · Internal hosting</span><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg></div><h3>PIL internal portal</h3><p>Served from existing infrastructure — fully internal, no external cloud.</p></div>
-    </div>
-    <div class="ready">
-      <div class="ready-card blk reveal"><span class="tag">Blocking</span><h3>Unblock &amp; license Claude AI</h3><div class="who">Owner · CISO &amp; security</div><ul><li>Assess and whitelist Claude AI</li><li>License the AI developer only — viewers need none</li><li>A secure, isolated device with Claude Code</li></ul></div>
-      <div class="ready-card req reveal"><span class="tag">Required</span><h3>Build the gold data layer</h3><div class="who">Owner · ISD Data CoE</div><ul><li>Dedicated Data CoE resource</li><li>API connector to Claude AI</li><li>Reliable data across departments</li></ul></div>
-      <div class="ready-card rdy reveal"><span class="tag">Ready ✓</span><h3>Use existing PIL infrastructure</h3><div class="who">Owner · ISD Infrastructure</div><ul><li>GitHub already active via ISD</li><li>Host on the PIL internal portal</li><li>Strong governance, all in-environment</li></ul></div>
-    </div>
-    <div class="internal-note reveal">Built fast, governed tightly — <b>fully internal, no external cloud.</b></div>
-  </div>
-</section>
-<!-- ============ CUTTABLE SECTION END ============ -->
 
 <footer>
   <div class="wrap">

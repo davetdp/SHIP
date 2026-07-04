@@ -552,9 +552,7 @@ if(conv && conv.children.length===0 && !conv._greeted){ conv._greeted=true; var 
   var DEST={
     hero:    {sel:null,         reply:"Taking you back to the <b>top</b> — the hawk's-eye overview of the whole network."},
     problem: {sel:'#problem',   reply:"Here's <b>why we built SHIP</b> — the fragmented-data problem, and what Trade told us in their own words."},
-    deck:    {sel:'#deck',      reply:"Opening the <b>live demo</b> — booking velocity, margins, delays, risk and proactive insights, all on the map."},
-    sources: {sel:'.sources',   reply:"This is <b>where the data comes from</b> — PIL's Gold layer fused with Alphaliner, PSA·BDP and Dow&nbsp;Jones."},
-    built:   {sel:'#how-built', reply:"Here's <b>how it's built</b> — from the gold data layer through Claude&nbsp;Code to PIL's own internal portal."}
+    deck:    {sel:'#deck',      reply:"Opening the <b>live demo</b> — booking velocity, margins, delays, risk and proactive insights, all on the map."}
   };
 
   function bub(cls,html){ var b=document.createElement('div'); b.className='bub '+cls; b.innerHTML=html; conv.appendChild(b); requestAnimationFrame(function(){ b.classList.add('show'); conv.scrollTop=conv.scrollHeight; }); return b; }
@@ -580,8 +578,6 @@ if(conv && conv.children.length===0 && !conv._greeted){ conv._greeted=true; var 
     if(/\b(top|home|hero|start|begin|overview|hawk|up)\b/.test(t)) return 'hero';
     if(/problem|why|blind|fragment|pain|before|silo|scatter|told us|trade said|quote|voices|reason/.test(t)) return 'problem';
     if(/demo|live|portal|\bmap\b|booking|velocity|cargo|margin|delay|risk|insight|aisha|agent|vessel|see it|show me|try/.test(t)) return 'deck';
-    if(/data|source|feed|where.*from|alphaliner|dow|psa|bdp|gold|intelligence|fused|fuse/.test(t)) return 'sources';
-    if(/build|built|how.*made|claude|github|deploy|infra|host|production|pipeline|stack|tech/.test(t)) return 'built';
     return null;
   }
   function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
@@ -590,7 +586,7 @@ if(conv && conv.children.length===0 && !conv._greeted){ conv._greeted=true; var 
     bub('q',esc(t));
     var k=match(t);
     if(k){ setTimeout(function(){ goTo(k); },380); }
-    else { setTimeout(function(){ bub('a',"I can take you to: <b>the top</b>, <b>why we built SHIP</b>, the <b>live demo</b>, <b>where the data comes from</b>, or <b>how it's built</b>. Which one?"); },380); }
+    else { setTimeout(function(){ bub('a',"I can take you to: <b>the top</b>, <b>why we built SHIP</b>, or the <b>live demo</b>. Which one?"); },380); }
   }
 
   function open(){ nav.classList.add('open'); nav.setAttribute('aria-hidden','false'); orb.setAttribute('aria-expanded','true'); greet(); setTimeout(function(){ if(box) box.focus(); },140); }
