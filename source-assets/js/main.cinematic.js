@@ -526,8 +526,9 @@ if(conv && conv.children.length===0 && !conv._greeted){ conv._greeted=true; var 
 
 /* ===== Intro video centerpiece — click-to-play, pauses itself once scrolled out of view ===== */
 (function(){
+  var modal=document.getElementById('video-modal'), openBtn=document.getElementById('watch-demo'), closeBtn=document.getElementById('vm-close');
   var frame=document.querySelector('.intro-frame'), vid=document.getElementById('intro-video'), btn=document.getElementById('intro-play'), fsbtn=document.getElementById('intro-fs');
-  if(!frame || !vid || !btn) return;
+  if(!modal || !frame || !vid || !btn) return;
   vid.muted=true; /* the source has no audio track; enforce silence regardless */
   function play(){ vid.setAttribute('controls',''); vid.play(); btn.classList.add('hide'); }
   btn.addEventListener('click', play);
@@ -539,9 +540,19 @@ if(conv && conv.children.length===0 && !conv._greeted){ conv._greeted=true; var 
     else if(target.requestFullscreen){ target.requestFullscreen(); }
     else if(vid.webkitEnterFullscreen){ vid.webkitEnterFullscreen(); } /* iOS Safari: video element only */
   }); }
-  if('IntersectionObserver' in window){
-    new IntersectionObserver(function(es){ es.forEach(function(e){ if(!e.isIntersecting && !vid.paused) vid.pause(); }); },{threshold:.1}).observe(frame);
+
+  /* lightbox: the "Watch the demo" button opens the video; it starts on the poster
+     so the visitor taps play themselves (the ~25 MB file only loads on play). */
+  function openModal(){ modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); document.documentElement.style.overflow='hidden'; }
+  function closeModal(){
+    modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); document.documentElement.style.overflow='';
+    try{ vid.pause(); }catch(e){}
+    btn.classList.remove('hide'); /* restore the play button for next time */
   }
+  if(openBtn) openBtn.addEventListener('click', openModal);
+  if(closeBtn) closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', function(e){ if(e.target===modal || e.target.hasAttribute('data-close')) closeModal(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && modal.classList.contains('open')) closeModal(); });
 })();
 
 /* ===== AISHA hero navigator — the orb opens a mini chat that jumps you to any section =====
