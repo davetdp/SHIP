@@ -552,7 +552,7 @@ header.top.solid{background:rgba(4,6,13,.74); backdrop-filter:blur(14px); border
 .btn-primary:hover{box-shadow:0 0 30px rgba(63,185,245,.4); transform:translateY(-1px)}
 .btn-ghost{border-color:var(--line-2); color:var(--ink-2)}
 .btn-ghost:hover{border-color:var(--cyan); color:var(--cyan)}
-.aisha-orb{position:absolute; right:28px; bottom:84px; z-index:7; display:flex; align-items:center; gap:12px; background:rgba(8,13,24,.7); backdrop-filter:blur(8px); border:1px solid var(--line-2); border-radius:999px; padding:9px 16px 9px 9px}
+.aisha-orb{position:absolute; right:28px; bottom:12vh; z-index:7; display:flex; align-items:center; gap:12px; background:rgba(8,13,24,.7); backdrop-filter:blur(8px); border:1px solid var(--line-2); border-radius:999px; padding:9px 16px 9px 9px}
 .aisha-orb .o{width:34px; height:34px; border-radius:50%; background:radial-gradient(circle at 35% 30%, #1b2c4a, #0a1322); border:1px solid rgba(63,185,245,.4); display:flex; align-items:center; justify-content:center; position:relative}
 .aisha-orb .o::after{content:""; position:absolute; inset:-4px; border-radius:50%; border:1px solid rgba(63,185,245,.3); animation:ping 2.6s ease-out infinite}
 @keyframes ping{0%{transform:scale(.8); opacity:.7}100%{transform:scale(1.5); opacity:0}}
@@ -565,7 +565,7 @@ header.top.solid{background:rgba(4,6,13,.74); backdrop-filter:blur(14px); border
 .aisha-orb{cursor:pointer; -webkit-appearance:none; appearance:none; font:inherit; text-align:left; transition:border-color .25s ease, box-shadow .25s ease, transform .25s ease}
 .aisha-orb:hover{border-color:rgba(63,185,245,.55); box-shadow:0 0 28px rgba(63,185,245,.22); transform:translateY(-1px)}
 .aisha-orb[aria-expanded="true"]{border-color:var(--cyan); box-shadow:0 0 30px rgba(63,185,245,.3)}
-.aisha-nav{position:absolute; right:28px; bottom:142px; z-index:30; width:330px; max-width:calc(100vw - 56px); max-height:min(66vh,540px); display:flex; flex-direction:column; background:rgba(8,12,22,.94); backdrop-filter:blur(18px); border:1px solid var(--line-2); border-radius:18px; box-shadow:0 40px 90px -30px rgba(0,0,0,.85), 0 0 0 1px rgba(63,185,245,.06) inset, 0 0 44px rgba(31,127,224,.16); overflow:hidden; opacity:0; transform:translateY(16px) scale(.95); transform-origin:bottom right; pointer-events:none; transition:opacity .28s ease, transform .42s cubic-bezier(.16,1,.3,1)}
+.aisha-nav{position:absolute; right:28px; bottom:calc(12vh + 58px); z-index:30; width:330px; max-width:calc(100vw - 56px); max-height:min(66vh,540px); display:flex; flex-direction:column; background:rgba(8,12,22,.94); backdrop-filter:blur(18px); border:1px solid var(--line-2); border-radius:18px; box-shadow:0 40px 90px -30px rgba(0,0,0,.85), 0 0 0 1px rgba(63,185,245,.06) inset, 0 0 44px rgba(31,127,224,.16); overflow:hidden; opacity:0; transform:translateY(16px) scale(.95); transform-origin:bottom right; pointer-events:none; transition:opacity .28s ease, transform .42s cubic-bezier(.16,1,.3,1)}
 .aisha-nav.open{opacity:1; transform:none; pointer-events:auto}
 .anav-h{display:flex; align-items:center; gap:11px; padding:14px 13px 13px 15px; border-bottom:1px solid var(--line)}
 .anav-av{width:34px; height:34px; border-radius:50%; overflow:hidden; background:#0a1322; border:1px solid rgba(63,185,245,.4); flex:none}
