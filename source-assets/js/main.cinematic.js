@@ -621,17 +621,17 @@ if(conv && conv.children.length===0 && !conv._greeted){ conv._greeted=true; var 
   document.addEventListener('keydown',function(e){ if(e.key==='Escape' && nav.classList.contains('open')) close(); });
 })();
 
-/* ── Problem card 3 — self-playing "slow decisions" timeline ──────────────────
-   A signal fires; the response slowly crawls in; the pricing window closes just
-   before it arrives → WINDOW MISSED, then it resets and loops. No interaction.
-   Plays only while on screen (IntersectionObserver). DC bundle hydrates late, so
-   this self-builds with a polling fallback. */
+/* ── Card 3 — self-playing "faster decisions" timeline ───────────────────────
+   A signal fires; the response arrives inside the still-open pricing window →
+   WINDOW OPEN with a negative (ahead-of-close) decision lag, then it resets and
+   loops. No interaction. Plays only while on screen (IntersectionObserver).
+   DC bundle hydrates late, so this self-builds with a polling fallback. */
 (function(){
-  var P_END=80, CLOSE_AT=0.7, CRAWL=4200, HOLD=1700, GAP=850,
+  var LAND=50, CRAWL=4200, HOLD=1700, GAP=850,
       BLUE='#3fb9f5', TEAL='#2fd6a8', RED='#ec3b34';
 
   function id(x){ return document.getElementById(x); }
-  function fmt(h){ var m=Math.round(h*60); return '+'+String(m/60|0).padStart(2,'0')+':'+String(m%60).padStart(2,'0'); }
+  function fmtNeg(h){ var m=Math.round(h*60); return '-'+String(m/60|0).padStart(2,'0')+':'+String(m%60).padStart(2,'0'); }
   function ping(el,name){ if(!el) return; el.style.animation='none'; void el.offsetWidth; el.style.animation=name+' .9s ease-out'; }
 
   function build(){
@@ -656,20 +656,10 @@ if(conv && conv.children.length===0 && !conv._greeted){ conv._greeted=true; var 
       miss.textContent='WINDOW OPEN'; miss.style.color=TEAL; miss.style.background='rgba(47,214,168,.12)'; miss.style.borderColor='rgba(47,214,168,.4)';
       lag.style.color='#eaf0fb';
     }
-    function setClosed(){
-      closed=true;
-      win.style.opacity='.45'; win.style.background='rgba(120,140,170,.16)';
-      if(winLab) winLab.style.color='#6b7a96';
-      close.style.background=RED; close.style.boxShadow='0 0 10px rgba(236,59,52,.7)';
-      fill.style.background=RED;
-      resp.style.borderColor=RED; resp.style.boxShadow='0 0 0 4px rgba(236,59,52,.16)';
-      lab.style.color=RED;
-      miss.textContent='WINDOW MISSED'; miss.style.color=RED; miss.style.background='rgba(236,59,52,.12)'; miss.style.borderColor='rgba(236,59,52,.4)';
-    }
     function place(p){ resp.style.left=p+'%'; lab.style.left=p+'%'; fill.style.width=p+'%'; }
 
     function begin(){
-      setOpen(); place(0); lag.textContent='+00:00';
+      setOpen(); place(0); lag.textContent='-04:00';
       resp.style.opacity='1'; fill.style.opacity='.85'; lab.style.opacity='0';
       ping(sig,'pcPing');
       t0=performance.now(); state='crawl';
@@ -678,10 +668,11 @@ if(conv && conv.children.length===0 && !conv._greeted){ conv._greeted=true; var 
       if(!running) return;
       var now=performance.now();
       if(state==='crawl'){
-        var f=Math.min(1,(now-t0)/CRAWL), p=f*P_END;
-        place(p); lag.textContent=fmt(f*6.2);
+        var f=Math.min(1,(now-t0)/CRAWL), p=f*LAND;
+        place(p);
+        // response lands inside the window — we're ahead of the close, so the lag is negative
+        lag.textContent=fmtNeg((1-f)*3.7+0.3);
         lab.style.opacity = p<13 ? '0' : '1';   // fade RESPONSE label in once clear of SIGNAL
-        if(!closed && f>=CLOSE_AT) setClosed();
         if(f>=1){ ping(resp,'pcLand'); state='hold'; t0=now; }
       } else if(state==='hold'){
         if(now-t0>=HOLD){ resp.style.opacity='0'; fill.style.opacity='0'; lab.style.opacity='0'; state='gap'; t0=now; }
