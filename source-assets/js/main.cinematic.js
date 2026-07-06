@@ -702,10 +702,14 @@ if(conv && conv.children.length===0 && !conv._greeted){ conv._greeted=true; var 
    Hovering a tile reveals a small popup with a relevant mini-visual of that source.
    Redraws on resize; polling fallback for the DC bundle's late hydration. */
 (function(){
-  var PAIRS=[['src-lms','src-pbi'],['src-lms','src-excel'],['src-excel','src-agent'],
-             ['src-pbi','src-sea'],['src-agent','src-sea'],['src-alpha','src-sea'],
-             ['src-sea','src-liner'],['src-drewry','src-liner']];
-  var TILES=['src-lms','src-excel','src-pbi','src-agent','src-sea','src-alpha','src-liner','src-drewry'];
+  // internal systems flow into the data warehouse and the warehouse feeds SHIP;
+  // external providers connect straight into SHIP over API (cyan flows)
+  var INTERNAL=[['src-lms','src-dw'],['src-excel','src-dw'],['src-orbit','src-dw'],
+                ['src-gfs','src-dw'],['src-dw','src-ship']];
+  var EXTERNAL=[['src-psa','src-ship'],['src-alpha','src-ship'],['src-dow','src-ship'],
+                ['src-drewry','src-ship'],['src-liner','src-ship']];
+  var TILES=['src-lms','src-excel','src-orbit','src-gfs','src-dw','src-ship',
+             'src-psa','src-alpha','src-dow','src-drewry','src-liner'];
 
   // Freeze the tiles flat & axis-aligned. They float + rotate (var(--rot)) via pcFloat,
   // but the connectors anchor to the un-rotated layout box — so any tilt/bob makes the
@@ -722,7 +726,9 @@ if(conv && conv.children.length===0 && !conv._greeted){ conv._greeted=true; var 
     return { x:b.cx+ux*t, y:b.cy+uy*t }; }
 
   // tiny "data sparks" that flow along a connector from box a → box b
-  function flowSpark(a,b){
+  // (red glow for internal flows, cyan for external API flows)
+  function flowSpark(a,b,glow,core){
+    glow=glow||'#ff5a4d'; core=core||'#ffc6ad';
     var dx=b.x-a.x, dy=b.y-a.y, len=Math.sqrt(dx*dx+dy*dy)||1;
     var dur=Math.max(1.1, Math.min(2.6, len/68)), N=2, s='';
     for(var i=0;i<N;i++){
@@ -730,9 +736,9 @@ if(conv && conv.children.length===0 && !conv._greeted){ conv._greeted=true; var 
       var cx='<animate attributeName="cx" values="'+a.x.toFixed(1)+';'+b.x.toFixed(1)+'" '+m+'/>';
       var cy='<animate attributeName="cy" values="'+a.y.toFixed(1)+';'+b.y.toFixed(1)+'" '+m+'/>';
       // faint trailing glow + bright tiny core
-      s+='<circle r="2.1" fill="#ff5a4d" opacity="0">'+cx+cy
+      s+='<circle r="2.1" fill="'+glow+'" opacity="0">'+cx+cy
         +'<animate attributeName="opacity" values="0;.3;.3;0" keyTimes="0;0.2;0.8;1" '+m+'/></circle>'
-        +'<circle r="1.1" fill="#ffc6ad" opacity="0">'+cx+cy
+        +'<circle r="1.1" fill="'+core+'" opacity="0">'+cx+cy
         +'<animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.16;0.84;1" '+m+'/></circle>';
     }
     return s;
@@ -750,16 +756,19 @@ if(conv && conv.children.length===0 && !conv._greeted){ conv._greeted=true; var 
     var map=document.getElementById('pcSrcMap'), svg=document.getElementById('pcSrcLines');
     if(!map || !svg) return false;
     var W=map.clientWidth, H=map.clientHeight; if(!W || !H) return false;
-    var lines='', flow='';
-    PAIRS.forEach(function(p){
-      var A=boxOf(p[0]), B=boxOf(p[1]); if(!A || !B) return;
+    function seg(p){
+      var A=boxOf(p[0]), B=boxOf(p[1]); if(!A || !B) return null;
       var dx=B.cx-A.cx, dy=B.cy-A.cy, d=Math.sqrt(dx*dx+dy*dy)||1, ux=dx/d, uy=dy/d;
-      var a=edge(A,ux,uy), b=edge(B,-ux,-uy);
-      lines+='<line x1="'+a.x.toFixed(1)+'" y1="'+a.y.toFixed(1)+'" x2="'+b.x.toFixed(1)+'" y2="'+b.y.toFixed(1)+'"/>';
-      flow+=flowSpark(a,b);
-    });
+      return { a:edge(A,ux,uy), b:edge(B,-ux,-uy) };
+    }
+    function lineOf(s){ return '<line x1="'+s.a.x.toFixed(1)+'" y1="'+s.a.y.toFixed(1)+'" x2="'+s.b.x.toFixed(1)+'" y2="'+s.b.y.toFixed(1)+'"/>'; }
+    var lin='', lex='', flow='';
+    INTERNAL.forEach(function(p){ var s=seg(p); if(!s) return; lin+=lineOf(s); flow+=flowSpark(s.a,s.b); });
+    EXTERNAL.forEach(function(p){ var s=seg(p); if(!s) return; lex+=lineOf(s); flow+=flowSpark(s.a,s.b,'#4fc3ff','#c9ecff'); });
     svg.setAttribute('viewBox','0 0 '+W+' '+H);
-    svg.innerHTML='<g fill="none" stroke="#ec3b34" stroke-width="1.3" stroke-opacity=".42" stroke-linecap="round" stroke-dasharray="3 6" style="animation:pcDash 2.8s linear infinite;animation-play-state:var(--ps,running)">'+lines+'</g>';
+    svg.innerHTML=
+      '<g fill="none" stroke="#ec3b34" stroke-width="1.3" stroke-opacity=".42" stroke-linecap="round" stroke-dasharray="3 6" style="animation:pcDash 2.8s linear infinite;animation-play-state:var(--ps,running)">'+lin+'</g>'
+     +'<g fill="none" stroke="#3fb9f5" stroke-width="1.3" stroke-opacity=".45" stroke-linecap="round" stroke-dasharray="3 6" style="animation:pcDash 2.8s linear infinite;animation-play-state:var(--ps,running)">'+lex+'</g>';
     flowLayer(map,W,H).innerHTML=flow;
     return true;
   }
@@ -777,14 +786,17 @@ if(conv && conv.children.length===0 && !conv._greeted){ conv._greeted=true; var 
   function json(){ return '<pre style="'+MONO+';font-size:.4rem;line-height:1.55;margin:0;color:#9ec7e8;white-space:pre">{\n  "vessel":"Kota Layang",\n  "eta":"2026-07-04",\n  "pod":"CLLAO"\n}</pre>'; }
 
   var POP={
-    'src-lms':   {t:'LMS · Platform',     s:'Bookings, pricing, COA', v:'<div style="display:grid;grid-template-columns:1fr 1fr;gap:5px">'+chip('COA')+chip('PRICING')+chip('EQR')+chip('TRS')+'</div>'},
-    'src-excel': {t:'Excel · .XLSX',      s:'Manual, offline sheets', v:grid(['POD','TEU','RATE','CM','SIN','312','1.8k','3.5k','MOM','188','1.2k','2.1k'])},
-    'src-pbi':   {t:'Power BI / Hypercards', s:'Static dashboards', v:bars([16,27,13,33,22,30],'#ec3b34')},
-    'src-agent': {t:'Agent email · Inbox', s:'Unstructured reports', v:row('#ec3b34','Pickup rates — Manila','2h')+row('#f4a92b','BSA update — WCSA','1d')+row('#7a8aa8','Reefer space — Chile','3d')},
-    'src-sea':   {t:'Sea-Intelligence · API', s:'Schedule feed', v:json()},
-    'src-alpha': {t:'Alphaliner · Subscribed', s:'Fleet & AIS data', v:row('#3fb9f5','CMA Mississippi','18.8 kt')+row('#3fb9f5','Kota Eagle','15.2 kt')+row('#7a8aa8','MSC Reef','— AIS')},
-    'src-liner': {t:'Linerlytica · Web',  s:'Rate & market index', v:spark()},
-    'src-drewry':{t:'Drewry · PDF',       s:'Market reports', v:docv()}
+    'src-lms':   {t:'LMS · Internal',     s:'Bookings, pricing, COA', v:'<div style="display:grid;grid-template-columns:1fr 1fr;gap:5px">'+chip('COA')+chip('PRICING')+chip('EQR')+chip('TRS')+'</div>'},
+    'src-excel': {t:'Excel · Internal',   s:'Working sheets, loaded in', v:grid(['POD','TEU','RATE','CM','SIN','312','1.8k','3.5k','MOM','188','1.2k','2.1k'])},
+    'src-orbit': {t:'Orbit · Internal',   s:'Feeds the data warehouse', v:bars([18,26,15,31,22,33],'#ec3b34')},
+    'src-gfs':   {t:'GFS · Internal',     s:'Feeds the data warehouse', v:row('#ec3b34','Sync — hourly','OK')+row('#ec3b34','Tables — 42','LIVE')+row('#7a8aa8','Latency','< 1h')},
+    'src-dw':    {t:'Data Warehouse · Gold layer', s:'One clean, governed model', v:'<div style="display:grid;grid-template-columns:1fr 1fr;gap:5px">'+chip('CLEAN')+chip('MODELLED')+chip('GOVERNED')+chip('LIVE')+'</div>'},
+    'src-ship':  {t:'SHIP · Portal',      s:'One live view for Trade', v:row('#2fd6a8','Bookings','LIVE')+row('#2fd6a8','P&amp;L','LIVE')+row('#2fd6a8','Risk','LIVE')},
+    'src-psa':   {t:'PSA · API',          s:'Berth & port schedule', v:json()},
+    'src-alpha': {t:'Alphaliner · API',   s:'Fleet & AIS data', v:row('#3fb9f5','CMA Mississippi','18.8 kt')+row('#3fb9f5','Kota Eagle','15.2 kt')+row('#7a8aa8','MSC Reef','— AIS')},
+    'src-dow':   {t:'Dow Jones · API',    s:'Country & port risk', v:row('#ec3b34','Red Sea — tier 5','HIGH')+row('#f4a92b','WCSA — tier 3','MED')+row('#3fb9f5','SE Asia — tier 2','LOW')},
+    'src-drewry':{t:'Drewry · API',       s:'Market reports', v:docv()},
+    'src-liner': {t:'Linerlytica · API',  s:'Rate & market index', v:spark()}
   };
 
   function wirePops(map){
