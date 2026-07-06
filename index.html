@@ -1232,47 +1232,51 @@ footer{border-top:1px solid var(--line); padding:64px 0 40px; position:relative;
     </div>
     <div class="statement reveal"><span class="glyph">“</span><p>In a highly volatile, uncertain, complex and fast-changing world, we need <b style="color:var(--red); font-weight:600">one unified interface</b> — a single live view that turns fragmented data into fast, pre-emptive decisions.</p></div>
     <div class="prob-grid">
-      <div class="prob-card reveal" style="--pc:var(--red)"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div><h3>Unified sources</h3><p>One single source of truth — every system and format in one place to view all the data.</p><div id="pcSrcMap" style="margin-top:22px;height:200px;position:relative;border-radius:12px;background:radial-gradient(120% 120% at 50% 40%,rgba(236,59,52,.05),transparent 72%)">
+      <div class="prob-card reveal" style="--pc:var(--red)"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div><h3>Unified sources</h3><p>One single source of truth — every system and format in one place to view all the data.</p><div id="pcSrcMap" style="margin-top:22px;height:226px;position:relative;border-radius:12px;background:radial-gradient(120% 120% at 50% 40%,rgba(236,59,52,.05),transparent 72%)">
           <!-- connectors drawn by JS so they always line up to the tiles (see main.cinematic.js) -->
           <svg id="pcSrcLines" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none"></svg>
 
+          <!-- column headers -->
+          <div style="position:absolute;left:0;top:0;font-family:'IBM Plex Mono',monospace;font-size:.4rem;letter-spacing:.16em;color:#e08a84">INTERNAL SOURCES</div>
+          <div style="position:absolute;right:0;top:0;font-family:'IBM Plex Mono',monospace;font-size:.4rem;letter-spacing:.16em;color:#7cc0e8;text-align:right">EXTERNAL SOURCES</div>
+
           <!-- INTERNAL systems — left column, feeding the data warehouse -->
-          <div id="src-lms" style="position:absolute;left:0;top:0;width:80px;background:#0e1626;border:1px solid rgba(236,59,52,.5);border-radius:8px;padding:5px 8px;box-shadow:0 14px 26px -11px rgba(0,0,0,.92)">
+          <div id="src-lms" style="position:absolute;left:0;top:22px;width:80px;background:#0e1626;border:1px solid rgba(236,59,52,.5);border-radius:8px;padding:5px 8px;box-shadow:0 14px 26px -11px rgba(0,0,0,.92)">
             <div style="display:flex;align-items:center;gap:5px"><span style="width:5px;height:5px;border-radius:50%;background:#ec3b34"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.06em;color:#dfe6f4">LMS</span></div>
           </div>
-          <div id="src-excel" style="position:absolute;left:0;top:48px;width:80px;background:#0e1626;border:1px solid rgba(236,59,52,.5);border-radius:8px;padding:5px 8px;box-shadow:0 14px 26px -11px rgba(0,0,0,.92)">
+          <div id="src-excel" style="position:absolute;left:0;top:70px;width:80px;background:#0e1626;border:1px solid rgba(236,59,52,.5);border-radius:8px;padding:5px 8px;box-shadow:0 14px 26px -11px rgba(0,0,0,.92)">
             <div style="display:flex;align-items:center;gap:5px"><span style="width:5px;height:5px;border-radius:1px;background:#ec3b34"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.04em;color:#dfe6f4">Excel</span></div>
           </div>
-          <div id="src-orbit" style="position:absolute;left:0;top:96px;width:80px;background:#0e1626;border:1px solid rgba(236,59,52,.5);border-radius:8px;padding:5px 8px;box-shadow:0 14px 26px -11px rgba(0,0,0,.92)">
+          <div id="src-orbit" style="position:absolute;left:0;top:118px;width:80px;background:#0e1626;border:1px solid rgba(236,59,52,.5);border-radius:8px;padding:5px 8px;box-shadow:0 14px 26px -11px rgba(0,0,0,.92)">
             <div style="display:flex;align-items:center;gap:5px"><span style="width:5px;height:5px;border-radius:50%;background:#ec3b34"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.04em;color:#dfe6f4">Orbit</span></div>
           </div>
-          <div id="src-gfs" style="position:absolute;left:0;top:144px;width:80px;background:#0e1626;border:1px solid rgba(236,59,52,.5);border-radius:8px;padding:5px 8px;box-shadow:0 14px 26px -11px rgba(0,0,0,.92)">
+          <div id="src-gfs" style="position:absolute;left:0;top:166px;width:80px;background:#0e1626;border:1px solid rgba(236,59,52,.5);border-radius:8px;padding:5px 8px;box-shadow:0 14px 26px -11px rgba(0,0,0,.92)">
             <div style="display:flex;align-items:center;gap:5px"><span style="width:5px;height:5px;border-radius:50%;background:#ec3b34"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.06em;color:#dfe6f4">GFS</span></div>
           </div>
 
           <!-- the internal chain: everything lands in the warehouse, the warehouse feeds SHIP -->
-          <div id="src-dw" style="position:absolute;left:calc(50% - 41px);top:20px;width:82px;background:rgba(236,59,52,.07);border:1px solid rgba(236,59,52,.55);border-radius:8px;padding:6px 4px;text-align:center;box-shadow:0 14px 26px -11px rgba(0,0,0,.92)">
+          <div id="src-dw" style="position:absolute;left:calc(50% - 41px);top:42px;width:82px;background:rgba(236,59,52,.07);border:1px solid rgba(236,59,52,.55);border-radius:8px;padding:6px 4px;text-align:center;box-shadow:0 14px 26px -11px rgba(0,0,0,.92)">
             <div style="font-family:'IBM Plex Mono',monospace;font-size:.4rem;letter-spacing:.08em;color:#dfe6f4">DATA WAREHOUSE</div>
             <div style="font-family:'IBM Plex Mono',monospace;font-size:.36rem;letter-spacing:.14em;color:#f4a92b;margin-top:2px">GOLD LAYER</div>
           </div>
-          <div id="src-ship" style="position:absolute;left:calc(50% - 31px);top:86px;width:62px;background:rgba(63,185,245,.08);border:1px solid rgba(63,185,245,.6);border-radius:9px;padding:7px 4px;text-align:center;box-shadow:0 0 18px rgba(63,185,245,.28)">
+          <div id="src-ship" style="position:absolute;left:calc(50% - 31px);top:108px;width:62px;background:rgba(63,185,245,.08);border:1px solid rgba(63,185,245,.6);border-radius:9px;padding:7px 4px;text-align:center;box-shadow:0 0 18px rgba(63,185,245,.28)">
             <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.6rem;letter-spacing:.18em;color:#cdefff">SHIP</div>
           </div>
 
           <!-- EXTERNAL providers — right column, straight into SHIP via API -->
-          <div id="src-psa" style="position:absolute;right:0;top:0;width:96px;background:#0e1626;border:1px solid rgba(63,185,245,.45);border-radius:8px;padding:5px 7px;box-shadow:0 14px 26px -11px rgba(0,0,0,.92)">
+          <div id="src-psa" style="position:absolute;right:0;top:22px;width:96px;background:#0e1626;border:1px solid rgba(63,185,245,.45);border-radius:8px;padding:5px 7px;box-shadow:0 14px 26px -11px rgba(0,0,0,.92)">
             <div style="display:flex;align-items:center;gap:5px"><span style="width:5px;height:5px;border-radius:50%;background:#3fb9f5"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:.44rem;color:#dfe6f4">PSA</span><span style="font-family:'IBM Plex Mono',monospace;font-size:.36rem;color:#3fb9f5;background:rgba(63,185,245,.12);border-radius:3px;padding:1px 4px;margin-left:auto">API</span></div>
           </div>
-          <div id="src-alpha" style="position:absolute;right:0;top:40px;width:96px;background:#0e1626;border:1px solid rgba(63,185,245,.45);border-radius:8px;padding:5px 7px;box-shadow:0 14px 26px -11px rgba(0,0,0,.92)">
+          <div id="src-alpha" style="position:absolute;right:0;top:62px;width:96px;background:#0e1626;border:1px solid rgba(63,185,245,.45);border-radius:8px;padding:5px 7px;box-shadow:0 14px 26px -11px rgba(0,0,0,.92)">
             <div style="display:flex;align-items:center;gap:5px"><span style="width:5px;height:5px;border-radius:50%;background:#3fb9f5"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:.44rem;color:#dfe6f4">Alphaliner</span><span style="font-family:'IBM Plex Mono',monospace;font-size:.36rem;color:#3fb9f5;background:rgba(63,185,245,.12);border-radius:3px;padding:1px 4px;margin-left:auto">API</span></div>
           </div>
-          <div id="src-dow" style="position:absolute;right:0;top:80px;width:96px;background:#0e1626;border:1px solid rgba(63,185,245,.45);border-radius:8px;padding:5px 7px;box-shadow:0 14px 26px -11px rgba(0,0,0,.92)">
+          <div id="src-dow" style="position:absolute;right:0;top:102px;width:96px;background:#0e1626;border:1px solid rgba(63,185,245,.45);border-radius:8px;padding:5px 7px;box-shadow:0 14px 26px -11px rgba(0,0,0,.92)">
             <div style="display:flex;align-items:center;gap:5px"><span style="width:5px;height:5px;border-radius:50%;background:#3fb9f5"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:.44rem;color:#dfe6f4">Dow Jones</span><span style="font-family:'IBM Plex Mono',monospace;font-size:.36rem;color:#3fb9f5;background:rgba(63,185,245,.12);border-radius:3px;padding:1px 4px;margin-left:auto">API</span></div>
           </div>
-          <div id="src-drewry" style="position:absolute;right:0;top:120px;width:96px;background:#0e1626;border:1px solid rgba(63,185,245,.45);border-radius:8px;padding:5px 7px;box-shadow:0 14px 26px -11px rgba(0,0,0,.92)">
+          <div id="src-drewry" style="position:absolute;right:0;top:142px;width:96px;background:#0e1626;border:1px solid rgba(63,185,245,.45);border-radius:8px;padding:5px 7px;box-shadow:0 14px 26px -11px rgba(0,0,0,.92)">
             <div style="display:flex;align-items:center;gap:5px"><span style="width:5px;height:5px;border-radius:50%;background:#3fb9f5"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:.44rem;color:#dfe6f4">Drewry</span><span style="font-family:'IBM Plex Mono',monospace;font-size:.36rem;color:#3fb9f5;background:rgba(63,185,245,.12);border-radius:3px;padding:1px 4px;margin-left:auto">API</span></div>
           </div>
-          <div id="src-liner" style="position:absolute;right:0;top:160px;width:96px;background:#0e1626;border:1px solid rgba(63,185,245,.45);border-radius:8px;padding:5px 7px;box-shadow:0 14px 26px -11px rgba(0,0,0,.92)">
+          <div id="src-liner" style="position:absolute;right:0;top:182px;width:96px;background:#0e1626;border:1px solid rgba(63,185,245,.45);border-radius:8px;padding:5px 7px;box-shadow:0 14px 26px -11px rgba(0,0,0,.92)">
             <div style="display:flex;align-items:center;gap:5px"><span style="width:5px;height:5px;border-radius:50%;background:#3fb9f5"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:.44rem;color:#dfe6f4">Linerlytica</span><span style="font-family:'IBM Plex Mono',monospace;font-size:.36rem;color:#3fb9f5;background:rgba(63,185,245,.12);border-radius:3px;padding:1px 4px;margin-left:auto">API</span></div>
           </div>
         </div></div>
