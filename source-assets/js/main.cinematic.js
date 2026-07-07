@@ -529,7 +529,6 @@ if(conv && conv.children.length===0 && !conv._greeted){ conv._greeted=true; var 
   var modal=document.getElementById('video-modal'), openBtn=document.getElementById('watch-demo'), closeBtn=document.getElementById('vm-close');
   var frame=document.querySelector('.intro-frame'), vid=document.getElementById('intro-video'), btn=document.getElementById('intro-play'), fsbtn=document.getElementById('intro-fs');
   if(!modal || !frame || !vid || !btn) return;
-  vid.muted=true; /* the source has no audio track; enforce silence regardless */
   function play(){ vid.setAttribute('controls',''); vid.play(); btn.classList.add('hide'); }
   btn.addEventListener('click', play);
   vid.addEventListener('play', function(){ btn.classList.add('hide'); });
