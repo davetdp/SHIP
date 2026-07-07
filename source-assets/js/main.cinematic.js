@@ -428,7 +428,7 @@ if(conv && conv.children.length===0 && !conv._greeted){ conv._greeted=true; var 
   /* 3 — deck scene titles */
   var TITLES=[
     {k:'Booking velocity', h:'Real-time, at a glance', s:'Hover any vessel and booking velocity and pickup rates appear in one interactive view.'},
-    {k:'Pricing · CM strata', h:'Yield, made instant', s:'Top, mid and underperforming lanes by contribution per TEU — value and margin, colour-coded.'},
+    {k:'Pricing · Contribution margins', h:'Yield, made instant', s:'Top, mid and underperforming lanes by contribution per TEU — value and margin, colour-coded.'},
     {k:'Predictive schedules', h:'Plan ahead, not behind', s:'SHIP forecasts delays and congestion before they hit.'},
     {k:'Safety & risk', h:'Threats, spotted early', s:'SHIP maps safety and risk across every region, so teams act with confidence.'},
     {k:'Partner vessels', h:'Your fleet, and theirs', s:'Layer partner AIS over your own fleet — tick the carriers you want, via Alphaliner.'},
