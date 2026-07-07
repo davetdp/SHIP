@@ -943,14 +943,14 @@ section{position:relative; z-index:1}
 /* equal-width, single-row, function-tinted action buttons — matches the live portal */
 .pi-a-act{display:flex; flex-wrap:wrap; gap:6px; margin-top:11px}
 .pi-btn{flex:0 0 auto; text-align:center; white-space:nowrap; font-family:var(--m); font-size:.56rem; letter-spacing:.02em; padding:7px 9px; border-radius:7px; border:1px solid var(--line-2); background:rgba(255,255,255,.03); color:var(--ink-2); cursor:pointer; transition:.18s}
-.pi-btn.act{color:var(--amber); border-color:rgba(244,169,43,.34); background:rgba(244,169,43,.08)}
-.pi-btn.act:hover,.pi-btn.act.on{border-color:var(--amber); color:var(--amber); background:rgba(244,169,43,.16); box-shadow:0 0 14px rgba(244,169,43,.2)}
-.pi-btn.ack{color:var(--teal); border-color:rgba(47,214,168,.32); background:rgba(47,214,168,.07)}
-.pi-btn.ack:hover{border-color:var(--teal); color:var(--teal); background:rgba(47,214,168,.16)}
+.pi-btn.act{color:var(--teal); border-color:rgba(47,214,168,.36); background:rgba(47,214,168,.08)}
+.pi-btn.act:hover,.pi-btn.act.on{border-color:var(--teal); color:var(--teal); background:rgba(47,214,168,.16); box-shadow:0 0 14px rgba(47,214,168,.22)}
 .pi-btn.dis{color:var(--red); border-color:rgba(236,59,52,.32); background:rgba(236,59,52,.06)}
 .pi-btn.dis:hover{border-color:var(--red); color:var(--red); background:rgba(236,59,52,.15)}
-.pi-btn.ask{color:var(--cyan-2); border-color:rgba(63,185,245,.34); background:rgba(63,185,245,.07)}
-.pi-btn.ask:hover{border-color:var(--cyan); color:var(--cyan-2); background:rgba(63,185,245,.16); box-shadow:0 0 14px rgba(63,185,245,.2)}
+.pi-btn.view{color:var(--cyan-2); border-color:rgba(63,185,245,.34); background:rgba(63,185,245,.07)}
+.pi-btn.view:hover,.pi-btn.view.on{border-color:var(--cyan); color:var(--cyan-2); background:rgba(63,185,245,.16); box-shadow:0 0 14px rgba(63,185,245,.2)}
+.pi-btn.ask{color:#c9b0ff; border-color:rgba(155,120,255,.38); background:rgba(155,120,255,.08)}
+.pi-btn.ask:hover{border-color:#a97ffd; color:#d5c2ff; background:rgba(155,120,255,.17); box-shadow:0 0 14px rgba(155,120,255,.22)}
 /* in-place Take Action plan — mirrors the live portal's Empty Repositioning Plan modal */
 .pi-plan{max-height:0; opacity:0; margin-top:0; overflow:hidden; transition:max-height .44s cubic-bezier(.16,1,.3,1), opacity .32s ease, margin-top .44s cubic-bezier(.16,1,.3,1)}
 .pi-alert.planning .pi-plan{max-height:360px; opacity:1; margin-top:11px}
@@ -1151,7 +1151,7 @@ footer{border-top:1px solid var(--line); padding:64px 0 40px; position:relative;
 
 @media (max-width:1180px){ .deck-title{display:none} }
 </style>
-<script src="source-assets/js/main.cinematic.js?v=18"></script>
+<script src="source-assets/js/main.cinematic.js?v=19"></script>
 <script>try{if(!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)){document.documentElement.classList.add('cine');}}catch(e){}</script>
 </helmet>
 
@@ -1594,19 +1594,19 @@ footer{border-top:1px solid var(--line); padding:64px 0 40px; position:relative;
               <div class="pi-a-head"><span class="pi-sev"></span><span class="pi-cat">Equipment Imbalance</span><span class="pi-ago">8m ago</span></div>
               <div class="pi-a-title">D5 high-cube shortage at Qingdao</div>
               <p class="pi-a-body">Only <b>483 units</b> on the ground vs forecast demand of <b>903</b> (shortage <b>420</b>) in week <b>W23</b>. Reposition <b>350 units</b> from Singapore (surplus 634) — covers firm bookings + 50% buffer.</p>
-              <div class="pi-a-act"><button class="pi-btn ack">✓ Ack</button><button class="pi-btn dis">✕ Dismiss</button><button class="pi-btn ask">✦ Ask AISHA</button></div>
+              <div class="pi-a-act"><button class="pi-btn dis">✕ Dismiss</button><button class="pi-btn view">➤ View Details</button><button class="pi-btn ask">✦ Ask AISHA</button></div>
             </div>
             <div class="pi-alert" style="--pa:var(--red)">
               <div class="pi-a-head"><span class="pi-sev"></span><span class="pi-cat">Booking Velocity</span><span class="pi-ago">14m ago</span></div>
               <div class="pi-a-title">Kota Eagle V.0023W booking velocity AT RISK</div>
               <p class="pi-a-body">Shekou → Karachi only <b>12%</b> booked at T-3 (vs ~78% historical). Forecast at cutoff: <b>54%</b> — light by ~<b>1,840 TEU</b>. Recommend rate drop <b>-5%</b> or release to NVOCCs.</p>
-              <div class="pi-a-act"><button class="pi-btn ack">✓ Ack</button><button class="pi-btn dis">✕ Dismiss</button><button class="pi-btn ask">✦ Ask AISHA</button></div>
+              <div class="pi-a-act"><button class="pi-btn dis">✕ Dismiss</button><button class="pi-btn view">➤ View Details</button><button class="pi-btn ask">✦ Ask AISHA</button></div>
             </div>
             <div class="pi-alert" style="--pa:var(--amber)">
               <div class="pi-a-head"><span class="pi-sev"></span><span class="pi-cat">Schedule Slippage</span><span class="pi-ago">22m ago</span></div>
               <div class="pi-a-title">Kota Ebony delay cascading to Mombasa</div>
               <p class="pi-a-body">Shanghai <b>+1d 17h</b> delayed. Mombasa ETA shifts <b>24 May → 27 May</b>. <b>3 downstream bookings</b> at risk of missing cutoff; Port Kelang call also +1d.</p>
-              <div class="pi-a-act"><button class="pi-btn ack">✓ Ack</button><button class="pi-btn dis">✕ Dismiss</button><button class="pi-btn ask">✦ Ask AISHA</button></div>
+              <div class="pi-a-act"><button class="pi-btn dis">✕ Dismiss</button><button class="pi-btn view">➤ View Details</button><button class="pi-btn ask">✦ Ask AISHA</button></div>
             </div>
           </div>
           <div class="pi-foot"><span class="pi-foot-live"></span>12 active · 0 acknowledged · 0 snoozed</div>
