@@ -744,12 +744,12 @@ section{position:relative; z-index:1}
 .deck-holo{position:absolute; inset:0; z-index:2; opacity:0; pointer-events:none; display:flex; align-items:center; justify-content:center; transition:opacity .85s ease}
 .deck-holo.on{opacity:1}
 /* glow sits BEHIND the hull (lower-centre), not behind the scene title above it */
-.holo-glow{position:absolute; left:50%; top:63%; width:60%; height:52%; transform:translate(-50%,-50%); background:radial-gradient(50% 46% at 50% 50%, rgba(63,185,245,.4), rgba(31,127,224,.14) 54%, transparent 72%); filter:blur(14px)}
+.holo-glow{position:absolute; left:50%; top:60%; width:60%; height:52%; transform:translate(-50%,-50%); background:radial-gradient(50% 46% at 50% 50%, rgba(63,185,245,.4), rgba(31,127,224,.14) 54%, transparent 72%); filter:blur(14px)}
 .deck-holo.on .holo-glow{animation:holoGlowPulse 4.5s ease-in-out infinite}
 .holo-grid{position:absolute; left:50%; bottom:6%; width:120%; height:42%; transform:translateX(-50%); background-image:repeating-linear-gradient(90deg, rgba(92,203,255,.14) 0 1px, transparent 1px 64px), repeating-linear-gradient(0deg, rgba(92,203,255,.12) 0 1px, transparent 1px 40px); -webkit-mask-image:linear-gradient(0deg, rgba(0,0,0,.9), transparent 88%); mask-image:linear-gradient(0deg, rgba(0,0,0,.9), transparent 88%); transform:translateX(-50%) perspective(420px) rotateX(66deg); transform-origin:center bottom; opacity:.5}
 /* width tracks the gap between the 360px + 372px side panels so it never slips behind the text */
-.holo-zoom{position:relative; width:min(620px, calc(100vw - 900px)); height:52%; display:flex; align-items:center; justify-content:center; transform:scale(.7) translateY(12%); opacity:.0; transition:transform 1.7s cubic-bezier(.16,1,.3,1), opacity 1s ease}
-.deck-holo.on .holo-zoom{transform:scale(1) translateY(12%); opacity:1}
+.holo-zoom{position:relative; width:min(620px, calc(100vw - 900px)); height:52%; display:flex; align-items:center; justify-content:center; transform:scale(.7) translateY(5%); opacity:.0; transition:transform 1.7s cubic-bezier(.16,1,.3,1), opacity 1s ease}
+.deck-holo.on .holo-zoom{transform:scale(1) translateY(5%); opacity:1}
 /* render-based holographic vessel — two screen-blended copies (blurred bloom + softened main) */
 .holo-craft{position:absolute; inset:0; animation:holoFloat 7.5s ease-in-out infinite}
 /* ship "boots up" each time you land on the Booking Velocity scene: flicker-in + scan materialize.
